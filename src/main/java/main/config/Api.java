@@ -1,17 +1,18 @@
 package main.config;
 
-import main.App;
 import main.domain.Hero;
 import main.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.*;
 import org.json.JSONObject;
 
 @RestController
 @RequestMapping("/api/hero")
 public class Api {
+    @Autowired
     private final DatabaseService service;
-//    @Autowired
+
     Api(DatabaseService service){
         this.service = service;
     }
