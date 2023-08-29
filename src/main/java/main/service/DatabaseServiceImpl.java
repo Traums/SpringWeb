@@ -1,5 +1,6 @@
 package main.service;
 
+import lombok.RequiredArgsConstructor;
 import main.domain.Hero;
 import main.repos.HeroRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,9 @@ import java.util.List;
 @Service
 @Transactional
 public class DatabaseServiceImpl implements DatabaseService{
+    private final HeroRepository heroRepository;
     @Autowired
-    private HeroRepository heroRepository;
-
-    public DatabaseServiceImpl( HeroRepository heroRepository){
+    public DatabaseServiceImpl(HeroRepository heroRepository){
         this.heroRepository = heroRepository;
     }
 

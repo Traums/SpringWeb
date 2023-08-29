@@ -1,7 +1,8 @@
 package main.config;
 
+import main.App;
 import main.domain.Hero;
-import main.service.DatabaseServiceImpl;
+import main.service.DatabaseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.json.JSONObject;
@@ -9,9 +10,12 @@ import org.json.JSONObject;
 @RestController
 @RequestMapping("/api/hero")
 public class Api {
+    private final DatabaseService service;
+//    @Autowired
+    Api(DatabaseService service){
+        this.service = service;
+    }
 
-    @Autowired
-    private DatabaseServiceImpl service;
     @GetMapping()
     String getHero(){
         String json = new JSONObject().put("hero",new JSONObject()
