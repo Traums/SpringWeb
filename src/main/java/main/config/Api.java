@@ -1,11 +1,18 @@
-package main;
+package main.config;
 
+import main.domain.Hero;
+import main.service.DatabaseServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.json.JSONObject;
 
 @RestController
+@RequestMapping("/api/hero")
 public class Api {
-    @RequestMapping(value = "/api/hero", method = RequestMethod.GET)
+
+    @Autowired
+    private DatabaseServiceImpl service;
+    @GetMapping()
     String getHero(){
         String json = new JSONObject().put("hero",new JSONObject()
                                             .put("id",1)
@@ -14,15 +21,15 @@ public class Api {
                                             .toString();
         return json;
     }
-    @RequestMapping(value = "/api/hero", method = RequestMethod.POST)
+    @PostMapping()
     Hero modifyHero(@RequestBody Hero hero){
         hero.setId(100);
         System.out.println(validate(hero));
         return hero;
     }
-    @RequestMapping("/api/hero/{id}")
-    String getHeroById(@PathVariable int id){
-        return "Запрошенный номер:" + id;
+    @RequestMapping("/{id}")
+    Hero getHeroById(@PathVariable long id){
+        return service.getHeroById(id);
     }
     private String validate(Hero hero){
         String msgErr = "";
